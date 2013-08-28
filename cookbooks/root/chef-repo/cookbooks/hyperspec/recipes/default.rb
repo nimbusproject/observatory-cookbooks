@@ -43,7 +43,6 @@ execute 'pika' do
  command 'pip install pika==0.9.8'
 end
 
-
 package 'rabbitmq-server' do
 action :install
 end
@@ -61,6 +60,25 @@ package 'ffmpeg' do
 end
 
 package 'imagemagick' do
+ action :install
+end
+
+#apt-get install make
+#apt-get install libopenexr-dev libilmbase-dev libtiff-dev libnetcdf-dev libsdl1.2-dev libglu1-mesa-dev  libgl1-mesa-dev gcc g++ libgomp1 libgl1-mesa-glx libgl1-mesa-swx1 libgl1-mesa libxmu6 libopenexr6 libsdl1.2debian libsdl-ttf2.0-0
+
+package 'make' do
+ action :install
+end
+
+package 'libxi6' do
+ action :install
+end
+
+package 'libxmu6' do
+ action :install
+end
+
+package 'libglu1-mesa' do
  action :install
 end
 
@@ -96,10 +114,10 @@ bash "getfiles" do
     user "root"
     cwd "/root/"
     code <<-EOH
-    wget vm-110.alamo.futuregrid.org/hscal_data.tar
-    wget vm-110.alamo.futuregrid.org/hscal.tar.gz
+    ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.4 /usr/lib/libtiff.so.5
+    wget http://pages.uoregon.edu/~ekeever1/hscal.tar.gz
+    wget http://pages.uoregon.edu/~ekeever1/hscal-source.tar.gz
     tar -xzf hscal.tar.gz
-    tar -xf hscal_data.tar
     cd hscal
     make install
     EOH
